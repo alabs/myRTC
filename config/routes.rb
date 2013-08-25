@@ -1,8 +1,6 @@
 Myrtc::Application.routes.draw do
 
-  namespace :api, defaults: { format: :json } do
-    resources :rooms, only: [:index, :show, :create, :destroy]
-  end
+  resources :rooms
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

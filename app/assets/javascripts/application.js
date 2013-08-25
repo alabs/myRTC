@@ -15,7 +15,7 @@
 // require turbolinks
 // require angular
 // require angular-resource
-// require simplewebrtc
+//= require simplewebrtc
 // require app/utilities/main
 // require app/main
 // require app/factories/room_factory
@@ -29,4 +29,30 @@
 //= require_self
 
 $(function () {
+
+    // Iniciar el webrtc
+    $(".show-room").click(function() {
+      // create our webrtc connection
+      var webrtc = new SimpleWebRTC({
+          // the id/element dom element that will hold "our" video
+          localVideoEl: 'localVideo',
+          // the id/element dom element that will hold remote videos
+          remoteVideosEl: 'remotes',
+          // immediately ask for camera access
+          autoRequestMedia: true,
+          log: true
+      });
+  
+      // create the room in the provider
+      var room = $routeParams.name;
+      console.log('room');
+      webrtc.createRoom(room);
+  
+      // when it's ready, join 
+      webrtc.on('readyToCall', function () {
+          // you can name it anything
+          webrtc.joinRoom(room);
+      });
+    });
+    
 });
