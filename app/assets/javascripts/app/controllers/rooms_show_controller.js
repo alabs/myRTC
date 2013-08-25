@@ -29,10 +29,7 @@ angular.module('myRTC')
     });
 
     $scope.leaveRoom = function() {
-        // Leave room
-        webrtc.stopLocalVideo();
-        webrtc.leaveRoom();
-        room = null;
+        // delete resources & stop camera and video
     }
 
 	}]);
