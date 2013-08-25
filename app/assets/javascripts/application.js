@@ -26,6 +26,7 @@
 // require app/controllers/rooms_show_controller
 // require app/controllers/contact_controller
 // require_tree .
+//= require rooms
 //= require_self
 
 $(function () {

@@ -2,5 +2,45 @@
 <div class="jumbotron">
 	<h1>Video-Conference made Easy</h1>
 	<p class="lead">With only a few clicks and sharing the URL you can video-conference with anyone you want.</p>
-	<p><a class="btn btn-lg btn-success" href="#">Sign up today</a></p>
+	<p><a class="btn btn-lg btn-success" data-toggle="modal" href="#create-room">Create a Room</a></p>
+	<p>or</p>
+	<p><a class="btn btn-lg btn-primary" class="js-show-rooms" href="/rooms">Join a Public Room</a></p>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="create-room" tabindex="-1" role="dialog" aria-labelledby="create-room-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Creating room</h4>
+			</div>
+			<div class="modal-body">
+
+
+				<form class="bs-example form-horizontal">
+					<div class="form-group">
+						<label for="js-room-name" class="col-lg-4 control-label">Room name (*)</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" id="js-room-name" placeholder="Room name" required="true">
+						</div>
+					</div>
+
+					<a class="js-show-advanced-link" href="#"><small>Show advanced options</small></a>
+
+					<div class="form-group hide js-show-advanced-section">
+						<label for="room-password" class="col-lg-4 control-label">Password</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" id="room-password" placeholder="Password">
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success btn-lg js-create-room-final">Create room</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->

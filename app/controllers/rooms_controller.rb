@@ -25,6 +25,7 @@ class RoomsController < ApplicationController
   # POST /rooms
   # POST /rooms.json
   def create
+    logger.debug room_params
     @room = Room.new(room_params)
 
     respond_to do |format|
@@ -70,6 +71,7 @@ class RoomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
-      params[:room]
+      params.require(:room).permit(:name)
     end
+    
 end
