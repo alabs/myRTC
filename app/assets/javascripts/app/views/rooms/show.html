@@ -18,31 +18,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-
-  // grab the room from the URL
-  //var room = location.search && location.search.split('?')[1];
-  var room = document.location.hash.split('/').last()
-
-
-    // create our webrtc connection
-    var webrtc = new SimpleWebRTC({
-        // the id/element dom element that will hold "our" video
-        localVideoEl: 'localVideo',
-        // the id/element dom element that will hold remote videos
-        remoteVideosEl: 'remotes',
-        // immediately ask for camera access
-        autoRequestMedia: true,
-        log: true
-    });
-  
-    webrtc.createRoom(room);
-  
-    // when it's ready, join if we got a room from the URL
-    webrtc.on('readyToCall', function () {
-        // you can name it anything
-        webrtc.joinRoom(room);
-    });
-
-</script>
