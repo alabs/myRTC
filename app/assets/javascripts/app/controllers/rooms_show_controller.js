@@ -19,7 +19,6 @@ angular.module('myRTC')
     });
   
     var room = $routeParams.name;
-    console.log(room);
     webrtc.createRoom(room);
   
     // when it's ready, join if we got a room from the URL
