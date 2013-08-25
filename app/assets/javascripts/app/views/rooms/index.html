@@ -1,0 +1,27 @@
+<div class="container">
+	<div class="row">
+    <div class="col-md-12">
+      <h1>Salas</h1>
+
+      <a href="#/rooms/new" class="btn btn-info btn-xs">Añadir Sala</a>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Subscriptores</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody ng-controller="RoomsCtrl">
+          <tr ng-repeat="room in rooms">
+            <td><a href="#/rooms/{{room.name}}">{{room.name}}</td>
+            <td>{{room.subscribers}}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

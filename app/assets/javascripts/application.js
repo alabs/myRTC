@@ -12,5 +12,19 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+// require turbolinks
+//= require angular
+//= require angular-resource
+//= require app/main
+//= require app/factories/room_factory
+//= require app/controllers/mainnav_controller
+//= require app/controllers/home_controller
+//= require app/controllers/users_controller
+//= require app/controllers/rooms_controller
+//= require app/controllers/rooms_show_controller
+//= require app/controllers/contact_controller
+// require_tree .
+//= require_self
+
+$(function () {
+});
