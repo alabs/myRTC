@@ -6,4 +6,5 @@ angular.module('myRTC')
 
 		// Grab the room from the server
 		$scope.room = RoomFactory.get({id: $routeParams.name});
+
 	}]);

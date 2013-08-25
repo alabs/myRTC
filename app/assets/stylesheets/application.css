@@ -17,3 +17,7 @@ body {
   padding-bottom: 20px;
   font-size: 1.8em;
 }
+
+video {
+	height: 250px;
+}

@@ -15,6 +15,8 @@
 // require turbolinks
 //= require angular
 //= require angular-resource
+//= require simplewebrtc
+//= require app/utilities/main
 //= require app/main
 //= require app/factories/room_factory
 //= require app/controllers/mainnav_controller
