@@ -9,50 +9,17 @@
     <%= csrf_meta_tags %>
   </head>
   <body id="rtc-<%= @rtc %>">
-
-  
-   <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a id="logo" class="navbar-brand" href="/">myRTC</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul id="mainNav" class="nav navbar-nav">
-            <li id="users"><a href="#">Usuarios</a></li>
-            <li id="rooms"><a href="/rooms">Salas</a></li>
-            <li id="contact"><a href="#">Contacto</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Comunidad <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </div>
-
-    <div class="the-content">
-      <%= yield %>
-    </div>
-
     <div class="container">
-      <hr>
 
-      <footer>
-        <p>(ↄ) myRTC 2013</p>
-      </footer>
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="/rooms">Rooms</a></li>
+        </ul>
+        <h3 class="text-muted"><a href="/">myRTC</a></h3>
+      </div>
+
+      <%= yield %>
 
     </div>
 
