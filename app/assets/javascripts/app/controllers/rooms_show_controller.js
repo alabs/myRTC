@@ -18,13 +18,21 @@ angular.module('myRTC')
         log: true
     });
   
+    // create the room in the provider
     var room = $routeParams.name;
     webrtc.createRoom(room);
   
-    // when it's ready, join if we got a room from the URL
+    // when it's ready, join 
     webrtc.on('readyToCall', function () {
         // you can name it anything
         webrtc.joinRoom(room);
     });
+
+    $scope.leaveRoom = function() {
+        // Leave room
+        webrtc.stopLocalVideo();
+        webrtc.leaveRoom();
+        room = null;
+    }
 
 	}]);
