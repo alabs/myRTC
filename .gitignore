@@ -34,3 +34,6 @@ rerun.txt
 pickle-email-*.html
 
 config/database.yml
+
+.ruby-gemset
+.ruby-version
