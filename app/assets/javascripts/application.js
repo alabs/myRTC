@@ -44,7 +44,6 @@ $(function () {
   
     // create the room in the provider
     var room = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-    console.log(room);
     webrtc.createRoom(room);
   
     // when it's ready, join 
