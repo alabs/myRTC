@@ -16,7 +16,7 @@
         <tbody>
           <% @rooms.each do |room| %>
           <tr>
-            <td><a class="show-room" href="/rooms/<%= room.name %>"><%= room.name %></td>
+            <td><a href="/rooms/<%= room.name %>"><%= room.name %></td>
               <td><%= room.subscribers %></td>
             <td></td>
           </tr>
