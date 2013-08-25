@@ -9,6 +9,7 @@ class Room < ActiveRecord::Base
 	protected
 
   def set_name
-    self.name = SecureRandom.urlsafe_base64(8)
+  	# If defined then name it, if not generate a random string
+    self.name ||= SecureRandom.urlsafe_base64(8)
   end
 end
