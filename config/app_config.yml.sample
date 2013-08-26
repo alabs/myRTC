@@ -1,0 +1,14 @@
+
+defaults: &defaults
+  test: 'bla'
+  fb_app_id: ''
+  fb_host: ''
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

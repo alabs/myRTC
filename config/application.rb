@@ -6,6 +6,10 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
+# load app_config.yml  
+require 'yaml'  
+APP_CONFIG = YAML.load(File.read(File.expand_path('../app_config.yml', __FILE__)))[Rails.env]
+
 module Myrtc
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
