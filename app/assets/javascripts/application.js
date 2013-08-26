@@ -58,7 +58,8 @@ $(function () {
                   var remoteMediaStreams = document.getElementById('remotes');
                   remoteMediaStreams.appendChild(video, remoteMediaStreams.firstChild);
               }
-              stream.mediaElement.width = innerWidth / 3.4;
+              //stream.mediaElement.width = innerWidth / 3.4;
+              stream.mediaElement.width = 275;
           };
 
          connection.onleave = function (userid) {
