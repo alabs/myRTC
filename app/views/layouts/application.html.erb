@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-  	<meta charset="utf-8">
-    <title>Talk</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
-  	<%= stylesheet_link_tag    "application", media: "all" %>
-    <%= csrf_meta_tags %>
-  </head>
-  <body id="rtc-<%= @rtc %>">
-    <div id="fb-root"></div>
-    <div class="container">
-
-      <div class="header">
+<head>
+ <meta charset="utf-8">
+ <title>Talk</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+ <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+ <%= stylesheet_link_tag    "application", media: "all" %>
+ <%= csrf_meta_tags %>
+ <%= javascript_include_tag "application" %>
+ <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+</head>
+<body id="rtc-<%= @rtc %>">
+  <div id="fb-root"></div>
+  <div class="container">
+    <div class="header">
         <!-- ul class="nav nav-pills pull-right">
           <li class="active"><a href="#">Home</a></li>
           <li><a href="/rooms">Rooms</a></li>
@@ -33,12 +34,7 @@
           <option>united</option>
         </select>
       </div>
-
       <%= yield %>
-
     </div>
-
-	<%= javascript_include_tag "application" %>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   </body>
-</html>
+  </html>
