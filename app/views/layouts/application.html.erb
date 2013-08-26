@@ -7,8 +7,15 @@
 	  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
   	<%= stylesheet_link_tag    "application", media: "all" %>
     <%= csrf_meta_tags %>
+
+  <%= javascript_include_tag "application" %>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+
   </head>
   <body id="rtc-<%= @rtc %>">
+
+
     <div class="container">
 
       <div class="header">
@@ -36,7 +43,7 @@
 
     </div>
 
-	<%= javascript_include_tag "application" %>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+  
   </body>
 </html>

@@ -15,7 +15,10 @@
 // require turbolinks
 // require angular
 // require angular-resource
-//= require simplewebrtc
+// require simplewebrtc
+//= require firebase
+//= require RTCMultiConnection-v1.2
+//= require rtc-commons
 // require app/utilities/main
 // require app/main
 // require app/factories/room_factory
@@ -31,31 +34,61 @@
 
 $(function () {
 
-  if ($("body#rtc-enabled").length) {
-    // create our webrtc connection
-    var webrtc = new SimpleWebRTC({
-        // the id/element dom element that will hold "our" video
-        localVideoEl: 'localVideo',
-        // the id/element dom element that will hold remote videos
-        remoteVideosEl: 'remotes',
-        // immediately ask for camera access
-        autoRequestMedia: true,
-        log: true
-    });
+    // ejecutar en la página de la conferenncia
+    if ($("body#rtc-enabled").length) {
+  		var hash = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
   
-    // create the room in the provider
-    var room = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-    webrtc.createRoom(room);
-    // when it's ready, join 
-    webrtc.on('readyToCall', function () {
-        // you can name it anything
-        webrtc.joinRoom(room);
-    });
-  }
+      function initConnection(config) {
+          window.connection = new RTCMultiConnection(hash, {
+              firebase: 'rtcweb',
+              session: 'audio-video',
+              direction: 'many-to-many'
+          });
+          connection.onstream = function (stream) {
+              var video = getVideo(stream);
+              if (stream.type === 'local') document.getElementById('localVideo').appendChild(video);
+  
+              if (stream.type === 'remote') {
+                  var remoteMediaStreams = document.getElementById('remotes');
+                  remoteMediaStreams.appendChild(video, remoteMediaStreams.firstChild);
+              }
+              stream.mediaElement.width = innerWidth / 3.4;
+          };
 
-  $('#js-theme-switcher').on('change', function(){
-    $('#js-style-theme').remove();
-    $('head').append('<link id="js-style-theme" href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/'+ this.value +'/bootstrap.min.css" rel="stylesheet">');
-  });
+         connection.onleave = function (userid) {
+             var mediaElement = document.getElementById(userid);
+             if (mediaElement && mediaElement.parentNode) mediaElement.parentNode.parentNode.removeChild(mediaElement.parentNode);
+         };
+      }
+      
+      new window.Firebase('https://rtcweb.firebaseIO.com/' + hash).once('value', function (data) {
+          var isRoomPresent = data.val() != null;
+          if (isRoomPresent) {
+            initConnection();
+            window.isRoomInitiator = false;
+          } else {
+            initConnection();
+            connection.open(); 
+            window.isRoomInitiator = true;
+          }
+      });
+
+      function getVideo(stream) {
+
+          var div = document.createElement('div');
+          div.className = 'video-container';
+          div.id = stream.userid || 'self';
+  
+          //stream.mediaElement.controls = true;
+          stream.mediaElement.autoplay = true;
+          div.appendChild(stream.mediaElement);
+
+          return div
+      }
+  
+
+
+
+    }
 
 });
