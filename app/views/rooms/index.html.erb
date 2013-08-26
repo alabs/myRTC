@@ -4,7 +4,7 @@
       <h1>Salas</h1>
       <ul>
         <% @rooms.each do |room| %>
-          <li> <%= room.name %> </li>
+          <li> <%= link_to room.name, room %> </li>
         <% end %>
       </ul>
     </div>

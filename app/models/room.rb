@@ -2,6 +2,8 @@ class Room < ActiveRecord::Base
 
 	before_save :set_name
 
+	validates :name, :presence => true
+
 	def to_param
 		name
 	end

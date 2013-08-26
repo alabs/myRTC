@@ -4,7 +4,7 @@
   	<meta charset="utf-8">
     <title>Talk</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
   	<%= stylesheet_link_tag    "application", media: "all" %>
     <%= csrf_meta_tags %>
   </head>
@@ -17,6 +17,19 @@
           <li><a href="/rooms">Rooms</a></li>
         </ul -->
         <h3 class="text-muted"><a href="/">Talk</a></h3>
+        <select id="js-theme-switcher" style="float:right;">
+          <option>amelia</option>
+          <option>cerulean</option>
+          <option>cosmo</option>
+          <option>cyborg</option>
+          <option>flatly</option>
+          <option>journal</option>
+          <option>readable</option>
+          <option>simplex</option>
+          <option>slate</option>
+          <option>spacelab</option>
+          <option>united</option>
+        </select>
       </div>
 
       <%= yield %>

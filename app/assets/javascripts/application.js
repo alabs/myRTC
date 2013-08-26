@@ -46,12 +46,16 @@ $(function () {
     // create the room in the provider
     var room = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
     webrtc.createRoom(room);
-  
     // when it's ready, join 
     webrtc.on('readyToCall', function () {
         // you can name it anything
         webrtc.joinRoom(room);
     });
   }
+
+  $('#js-theme-switcher').on('change', function(){
+    $('#js-style-theme').remove();
+    $('head').append('<link id="js-style-theme" href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/'+ this.value +'/bootstrap.min.css" rel="stylesheet">');
+  });
 
 });

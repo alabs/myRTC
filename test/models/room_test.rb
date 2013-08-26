@@ -2,6 +2,12 @@ require 'test_helper'
 
 class RoomTest < ActiveSupport::TestCase
 
+  test "should save a room with a name" do 
+    assert_equal(Room.all.count,2)
+    Room.create(:name => '')
+    assert_equal(Room.all.count,2)
+  end
+
   test "should save if there is a name defined" do
   	r = Room.create(:name => "hola-mundo")
     assert_equal(r.name, "hola-mundo")
