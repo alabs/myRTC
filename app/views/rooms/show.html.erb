@@ -4,9 +4,16 @@
       <h1>Room: <%= @room.name %></h1>
       <a href="#" class="js-share-fb btn btn-facebook btn-sm"><i class="icon-facebook"></i> | Share on Facebook</a>
       <a href="#" class="js-share-tw btn btn-twitter btn-sm"><i class="icon-twitter"></i> | Share on Twitter</a>
-      <a href="#" class="js-copyclip btn btn-success btn-sm"><i class="icon-copy"></i> | Copy to Clipboard</a>
+      <button href="#" class="js-copyclip btn btn-success btn-sm" data-clipboard-text='Join me in a web videoconference: <%= room_url(@room) %>'>
+        <i class="icon-copy"></i> 
+        | Copy to Clipboard
+      </button>
 
       <div class="row" style="margin: 20px 0px;">
+       
+        <div class="alert alert-success hide js-copyclip-alert">
+          <strong>¡Copiado!</strong> Hemos copiado la URL de este sitio para compartir.
+        </div>
 
         <div class="alert alert-danger js-no-webrtc">
           <strong>¡Oh no!</strong> Parece tu navegador no es compatible. Te invitamos a instalarte otro navegador moderno, como Mozilla Firefox o Google Chrome.

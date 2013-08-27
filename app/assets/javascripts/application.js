@@ -35,4 +35,6 @@
 // require webrtc
 // require themeswitcher
 //= require myrtc
+//= require zeroclipboard
+//= require clipboard
 //= require_self

@@ -47,3 +47,5 @@ gem 'puma'
 # gem 'debugger', group: [:development, :test]
 
 gem 'pry-rails', group: :development
+
+gem 'zeroclipboard-rails'
