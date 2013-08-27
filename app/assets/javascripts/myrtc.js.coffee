@@ -1,13 +1,22 @@
+showAlertUnsupported = ->
+  $('.js-no-webrtc').removeClass('hide').show() 
+  $('.js-accept-webrtc').hide()
 
 checkWebRTCSupport = ->
   navigator.getUserMediaMyRTC = navigator.getUserMedia or navigator.webkitGetUserMedia or navigator.mozGetUserMedia or navigator.msGetUserMedia
   window.URL = window.URL or window.webkitURL or window.mozURL or window.msURL
   unless navigator.getUserMediaMyRTC
-    $('.js-no-webrtc').removeClass('hide').show() 
-    $('.js-accept-webrtc').hide()
+    showAlertUnsupported()
+
+checkBrowserSupport = ->
+  is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1
+  is_android = navigator.userAgent.toLowerCase().indexOf('android') > -1
+  if (is_firefox and is_android) 
+    showAlertUnsupported()
 
 $ ->
   checkWebRTCSupport()
+  checkBrowserSupport()
   if $("body#rtc-enabled").length
     initConnection = (config) ->
       window.connection = new RTCMultiConnection(hash,
