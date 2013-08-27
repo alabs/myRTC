@@ -1,4 +1,13 @@
+
+checkWebRTCSupport = ->
+  navigator.getUserMediaMyRTC = navigator.getUserMedia or navigator.webkitGetUserMedia or navigator.mozGetUserMedia or navigator.msGetUserMedia
+  window.URL = window.URL or window.webkitURL or window.mozURL or window.msURL
+  unless navigator.getUserMediaMyRTC
+    $('.js-no-webrtc').removeClass('hide').show() 
+    $('.js-accept-webrtc').hide()
+
 $ ->
+  checkWebRTCSupport()
   if $("body#rtc-enabled").length
     initConnection = (config) ->
       window.connection = new RTCMultiConnection(hash,
