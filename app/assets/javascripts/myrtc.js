@@ -26,8 +26,8 @@ $(function () {
              var mediaElement = document.getElementById(userid);
              if (mediaElement && mediaElement.parentNode) mediaElement.parentNode.parentNode.removeChild(mediaElement.parentNode);
          };
-      }
-      
+      }       
+
       new window.Firebase('https://rtcweb.firebaseIO.com/' + hash).once('value', function (data) {
           var isRoomPresent = data.val() != null;
           if (isRoomPresent) {
@@ -53,9 +53,6 @@ $(function () {
           return div
       }
   
-
-
-
-    }
+    } 
 
 });

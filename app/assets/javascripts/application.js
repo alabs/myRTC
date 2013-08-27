@@ -33,6 +33,6 @@
 //= require facebook
 //= require twitter
 // require webrtc
-//= require themeswitcher
+// require themeswitcher
 //= require myrtc
 //= require_self
