@@ -25,6 +25,7 @@ $ ->
         direction: "many-to-many"
       )
       connection.onstream = (stream) ->
+        $(".js-accept-webrtc").hide()
         video = getVideo(stream)
         document.getElementById("localVideo").appendChild video  if stream.type is "local"
         if stream.type is "remote"
