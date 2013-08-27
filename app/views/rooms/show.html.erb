@@ -10,6 +10,9 @@
         <i class="icon-copy"></i> 
         | Copy to Clipboard
       </button>
+      <% if @room.password? %><br />
+        <span class="label label-info"><i class="icon-lock"></i> <%= @room.password %></span>
+      <% end %>
 
       <div class="row" style="margin: 20px 0px;">
        

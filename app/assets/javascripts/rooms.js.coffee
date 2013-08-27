@@ -1,6 +1,7 @@
 createRoom = ->
   $.post "/rooms",
-    'room[name]': $('#js-room-name').val()
+    'room[name]':     $('#js-room-name').val()
+    'room[password]': $('#js-room-pass').val()
     (data, textStatus, jqXHR) -> window.location = '/rooms/' + data.name
     "json"
 
