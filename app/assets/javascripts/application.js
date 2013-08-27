@@ -18,7 +18,6 @@
 // require simplewebrtc
 //= require firebase
 //= require RTCMultiConnection-v1.2
-//= require rtc-commons
 // require app/utilities/main
 // require app/main
 // require app/factories/room_factory
