@@ -1,10 +1,12 @@
 <h1>Room: <%= room.name %></h1>
+<% unless @room.password? and not @room.check_password? params[:roomgivenpass] %>
 <a href="#" class="js-share-fb btn btn-facebook btn-sm"><i class="icon-facebook"></i> | Share on Facebook</a>
 <a href="#" class="js-share-tw btn btn-twitter btn-sm"><i class="icon-twitter"></i> | Share on Twitter</a>
 <button href="#" class="js-copyclip btn btn-success btn-sm" data-clipboard-text='Join me in a web videoconference: <%= room_url(room) %>'>
-  <i class="icon-copy"></i> 
-  | Copy to Clipboard
+	<i class="icon-copy"></i> 
+	| Copy to Clipboard
 </button>
-<% if room.password? %><br />
-  <span class="label label-info"><i class="icon-lock"></i> <%= room.password %></span>
+  <% if room.password? %><br />
+    <span class="label label-info"><i class="icon-lock"></i> <%= room.password %></span>
+  <% end %>
 <% end %>

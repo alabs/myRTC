@@ -1,9 +1,3 @@
-createRoom = ->
-  $.post "/rooms",
-    'room[name]':     $('#js-room-name').val()
-    'room[password]': $('#js-room-pass').val()
-    (data, textStatus, jqXHR) -> window.location = '/rooms/' + data.name
-    "json"
 
 generateRandomString = ->
   return Math.random().toString(36).substring(7)
@@ -22,7 +16,5 @@ $ ->
   # click click click
   $('.js-show-advanced-link').click ->
     showAdvancedOptions()
-  $('.js-create-room-final').click ->
-    createRoom()
   $('.js-share-fb').click ->
     shareOnFacebook()

@@ -2,9 +2,14 @@ class Room < ActiveRecord::Base
 
 	before_save :set_name
 
-	validates :name, :presence => true
+	validates :name, presence: true
+	validates :name, uniqueness: true
+	validates :name, length: {
+      minimum: 3,
+      maximum: 100,
+    }
 
-  scope :public, -> { where(password: nil) }
+    scope :public, -> { where(password: nil) }
 
 	def to_param
 		name
