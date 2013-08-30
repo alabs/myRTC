@@ -1,5 +1,5 @@
 showAlertUnsupported = ->
-  $('.js-no-webrtc').removeClass('hide').show() 
+  $('.js-no-webrtc').removeClass('hide').show()
   $('.js-accept-webrtc').hide()
 
 checkWebRTCSupport = ->
@@ -12,8 +12,22 @@ checkWebRTCSupport = ->
 checkBrowserSupport = ->
   is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1
   is_android = navigator.userAgent.toLowerCase().indexOf('android') > -1
-  if (is_firefox and is_android) 
+  if (is_firefox and is_android)
     showAlertUnsupported()
+
+appendDIV = (data, parent) ->
+  div = document.createElement('div')
+  div.innerHTML = data
+  chatOutput = document.getElementById('chat-output')
+  fileProgress = document.getElementById('file-progress')
+  if (!parent)
+    chatOutput.insertBefore(div, chatOutput.firstChild)
+  else
+    fileProgress.insertBefore(div, fileProgress.firstChild)
+  div.tabIndex = 0
+  div.focus()
+  chatInput.focus()
+
 
 $ ->
   checkWebRTCSupport()
@@ -25,6 +39,8 @@ $ ->
         session: "audio-video-data"
         direction: "many-to-many"
       )
+      connection.onmessage = (e) ->
+        appendDIV(e)
       connection.onstream = (stream) ->
         $(".js-accept-webrtc").hide()
         video = getVideo(stream)
@@ -54,3 +70,12 @@ $ ->
         initConnection()
         connection.open()
         window.isRoomInitiator = true
+    chatInput = document.getElementById('chat-input')
+    chatInput.onkeypress = (e) ->
+      if (e.keyCode != 13 || !this.value)
+        return
+      appendDIV(this.value);
+      connection.send(this.value)
+
+      this.value = ''
+      this.focus()
