@@ -3,9 +3,19 @@
 <div class="jumbotron">
 	<h1>Video-Conference made Easy</h1>
 	<p class="lead">With only a few clicks and sharing the URL you can video-conference with anyone you want.</p>
-	<p><a class="btn btn-lg btn-success" data-toggle="modal" href="#create-room">Create a Room</a></p>
+    <p>
+      <a class="btn btn-lg btn-success" data-toggle="modal" href="#create-room">
+        <i class="icon-plus"></i>
+        Create a Room
+      </a>
+    </p>
 	<p>or</p>
-	<p><a class="btn btn-lg btn-primary" class="js-show-rooms" href="/rooms">Join a Public Room</a></p>
+    <p>
+      <a class="btn btn-lg btn-primary" class="js-show-rooms" href="/rooms">
+        <i class="icon-list"></i>
+        Join a Public Room
+      </a>
+    </p>
 </div>
 
 <%= render :partial => "modal_room", :locals => { :room => @room_new } %>
