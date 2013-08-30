@@ -3,7 +3,9 @@
 one:
   name: MyString
   subscribers: 1
+  password: MyString
 
 two:
   name: MyString
   subscribers: 1
+  password: MyString

@@ -23,7 +23,7 @@
         <li><a href="/rooms">Rooms</a></li>
       </ul -->
       <h3 class="text-muted"><%= link_to image_tag('logo.png'), root_path %></h3>
-        <% if @room %>
+        <% if @room and @room.name? %>
           <div class="header-wrapper">
             <%= render :partial => "header", :locals => { :room => @room } %>
           </div>

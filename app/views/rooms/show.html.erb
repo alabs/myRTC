@@ -1,4 +1,7 @@
 <% @OG_TITLE = "Room #{@room.name}" %>
+<% if notice %>
+  <p id="notice" class="alert alert-primary"><%= notice %></p>
+<% end %>
 
 <div class="container">
   <div class="row">
