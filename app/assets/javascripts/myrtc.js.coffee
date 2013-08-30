@@ -44,7 +44,7 @@ $ ->
       div.appendChild stream.mediaElement
       div
     hash = window.location.href.substring(window.location.href.lastIndexOf("/") + 1)
-    new window.Firebase("https://rtcweb.firebaseIO.com/" + hash).once "value", (data) ->
+    new window.Firebase("https://myrtc.firebaseio.com/" + hash).once "value", (data) ->
       isRoomPresent = data.val()?
       if isRoomPresent
         initConnection()
