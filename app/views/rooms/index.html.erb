@@ -2,9 +2,13 @@
 	<div class="row">
     <div class="col-md-12">
       <h1>Rooms</h1>
-      <ul>
+      <ul class="room-list">
         <% @rooms.each do |room| %>
-          <li><%= link_to room.name, room_path(room) %> </li>
+          <li>
+            <%= link_to room_path(room) do %>
+              <%= room.name %> <span>(<%= room.subscribers %> people)</span>
+            <% end %>
+          </li>
         <% end %>
       </ul>
     </div>
@@ -12,5 +16,8 @@
 </div>
 
 <div class="center">
-  <%= link_to 'New Room', new_room_path, :class => "btn btn-primary btn-lg" %>
+  <%= link_to new_room_path, :class => "btn btn-success btn-lg" do %>
+    <i class="icon-plus"></i>
+    Create a Room
+  <% end %>
 </div>
