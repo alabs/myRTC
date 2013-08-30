@@ -1,0 +1,30 @@
+<%= form_for(@room, html: {class:'form-horizontal'}) do |f| %>
+  <% if @room.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(@room.errors.count, "error") %> prohibited this room from being saved:</h2>
+
+      <ul>
+      <% @room.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, :class => "control-label" %>
+    <%= f.text_field :name, :class => "form-control" %>
+  </div>
+
+  <div class="form-group js-show-advanced-link">
+    <a class="js-show-advanced-link" href="#"><small>Show advanced options</small></a>
+  </div>
+
+  <div class="form-group hide js-show-advanced-section">
+    <%= f.label :password, :class => "control-label" %>
+    <%= f.text_field :password, :class => "form-control" %>
+  </div>
+  <div class="form-group center">
+    <%= f.submit "Submit", :class => "btn btn-lg btn-primary" %>
+  </div>
+<% end %>

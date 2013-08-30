@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
     <div class="col-md-12">
-      <h1>Salas</h1>
+      <h1>Rooms</h1>
       <ul>
         <% @rooms.each do |room| %>
           <li><%= link_to room.name, room_path(room) %> </li>
@@ -9,4 +9,8 @@
       </ul>
     </div>
   </div>
+</div>
+
+<div class="center">
+  <%= link_to 'New Room', new_room_path, :class => "btn btn-primary btn-lg" %>
 </div>

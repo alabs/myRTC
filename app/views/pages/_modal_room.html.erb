@@ -1,0 +1,32 @@
+<!-- Modal -->
+<div class="modal fade" id="create-room" tabindex="-1" role="dialog" aria-labelledby="create-room-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Creating room</h4>
+			</div>
+
+			<%= form_for room, url: rooms_path, html: {class: "bs-example form-horizontal"} do |f| %>
+			<div class="modal-body">
+				<div class="form-group">
+					<%= f.label :name, :class => "col-lg-4 control-label" %>
+					<div class="col-lg-8">
+						<%= f.text_field :name, :class => "form-control", :id => "js-room-name", :placeholder => "Room name", :required => true %>
+					</div>
+				</div>
+				<a class="js-show-advanced-link" href="#"><small>Show advanced options</small></a>
+				<div class="form-group hide js-show-advanced-section">    <%= f.label :password, :class => "col-lg-4 control-label" %>
+					<div class="col-lg-8">
+						<%= f.text_field :password, :class => "form-control", :id => "js-room-name", :placeholder => "Password" %>
+					</div>
+				</div> 
+			</div>
+			<div class="modal-footer">
+				<%= f.submit "Create room", :class => "btn btn-success btn-lg" %>
+			</div>
+			<% end %>
+			
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->

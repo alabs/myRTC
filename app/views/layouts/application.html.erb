@@ -5,12 +5,7 @@
   <title>Talk</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/united/bootstrap.min.css" rel="stylesheet" id="js-style-theme" >
-  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
   <%= stylesheet_link_tag    "application", media: "all" %>
-
-  <%= javascript_include_tag "application" %>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> 
 
   <!-- Facebook Meta Tags -->
   <meta property="og:site_name" content="Talk"/>
@@ -31,21 +26,14 @@
         <li><a href="/rooms">Rooms</a></li>
       </ul -->
       <h3 class="text-muted"><%= link_to image_tag('logo.png'), root_path %></h3>
-      <!-- select id="js-theme-switcher" style="float:right;">
-        <option>amelia</option>
-        <option>cerulean</option>
-        <option>cosmo</option>
-        <option>cyborg</option>
-        <option>flatly</option>
-        <option>journal</option>
-        <option>readable</option>
-        <option>simplex</option>
-        <option>slate</option>
-        <option>spacelab</option>
-        <option>united</option>
-      </select -->
+        <% if @room and @room.name? %>
+          <div class="header-wrapper">
+            <%= render :partial => "header", :locals => { :room => @room } %>
+          </div>
+        <% end %>
       </div>
       <%= yield %>
     </div>
+    <%= javascript_include_tag "application" %>
   </body>
   </html>
