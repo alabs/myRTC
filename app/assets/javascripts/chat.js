@@ -37,7 +37,7 @@ return io.connect().on('message', callback);
 
 
 // using firebase for signaling
-connection.firebase = 'rtcweb';
+connection.firebase = 'myrtc';
 
 // if someone leaves; just remove his video
 connection.onuserleft = function(userid) {

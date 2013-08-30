@@ -3,6 +3,7 @@ showAlertUnsupported = ->
   $('.js-accept-webrtc').hide()
 
 checkWebRTCSupport = ->
+  # hacer el check de DataConnection
   navigator.getUserMediaMyRTC = navigator.getUserMedia or navigator.webkitGetUserMedia or navigator.mozGetUserMedia or navigator.msGetUserMedia
   window.URL = window.URL or window.webkitURL or window.mozURL or window.msURL
   unless navigator.getUserMediaMyRTC
@@ -20,8 +21,8 @@ $ ->
   if $("body#rtc-enabled").length
     initConnection = (config) ->
       window.connection = new RTCMultiConnection(hash,
-        firebase: "rtcweb"
-        session: "audio-video"
+        firebase: "myrtc"
+        session: "audio-video-data"
         direction: "many-to-many"
       )
       connection.onstream = (stream) ->
