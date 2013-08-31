@@ -25,6 +25,20 @@ appendDIV = (data, user) ->
   div.focus()
   chatInput.focus()
 
+percentProgressBar = (total, counter) ->
+  (counter/total) * 100
+
+appendProgressBar = (total, remaining) ->
+  $("#file-progress > div").remove()
+  counter = (total - remaining)
+  $("#file-progress")
+    .append('<div class="progress-bar" role="progressbar" aria-valuenow="'+counter+'" aria-valuemin="0" aria-valuemax="'+total+'" style="width: '+percentProgressBar(total, counter)+'%"></div>')
+  counter++
+  console.log(counter)
+
+removeProgressBar = ->
+  $("#file-progress").remove()
+
 $ ->
   checkWebRTCSupport()
   checkBrowserSupport()
@@ -51,11 +65,13 @@ $ ->
       # sending/received files
       connection.autoSaveToDisk = false
       connection.onFileProgress = (packets) ->
-        $("#file-progress > p").remove()
-        $("#file-progress").append('<p>Remaining: '+packets.remaining+' Length: '+packets.length+' Sent: '+packets.sent+'</p>')
+        appendProgressBar(packets.length, packets.remaining)
+        console.log(packets)
       connection.onFileSent = (file) ->
+        removeProgressBar()
         appendDIV('Le llegó el fichero', 'bot')
       connection.onFileReceived = (filename) ->
+        removeProgressBar()
         appendDIV('Te llegó un fichero', 'bot')
       document.getElementById('file').onchange = ->
         connection.send(this.files[0])
