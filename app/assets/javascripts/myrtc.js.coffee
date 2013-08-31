@@ -19,7 +19,7 @@ appendDIV = (data, user) ->
   chatOutput = document.getElementById('chat-output')
   chatInput = document.getElementById('chat-input')
   div = document.createElement('div')
-  div.innerHTML = '<div class="chat-msg"><strong>anon</strong><span class="chat-delim">: </span><span class="chat-text">'+data+'</span></div>'
+  div.innerHTML = '<div class="chat-msg"><strong>'+user+'</strong><span class="chat-delim">: </span><span class="chat-text">'+data+'</span></div>'
   chatOutput.insertBefore(div, chatOutput.firstChild)
   div.tabIndex = 0
   div.focus()
@@ -55,6 +55,7 @@ $ ->
       connection.onFileSent = (file) ->
         console.log(file)
       connection.onFileReceived = (filename) ->
+        appendDIV('Te llegó un fichero', 'bot')
         console.log(filename)
       document.getElementById('file').onchange = ->
         connection.send(this.files[0])
