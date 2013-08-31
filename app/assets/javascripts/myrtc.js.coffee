@@ -45,10 +45,20 @@ $ ->
           remoteMediaStreams = document.getElementById("remotes")
           remoteMediaStreams.appendChild video, remoteMediaStreams.firstChild
         stream.mediaElement.width = innerWidth / 3.4
-
       connection.onleave = (userid) ->
         mediaElement = document.getElementById(userid)
         mediaElement.parentNode.parentNode.removeChild mediaElement.parentNode  if mediaElement and mediaElement.parentNode
+      # sending/received files
+      #connection.autoSaveToDisk = false
+      connection.onFileProgress = (packets, uuid) ->
+        console.log(packets)
+      connection.onFileSent = (file) ->
+        console.log(file)
+      connection.onFileReceived = (filename) ->
+        console.log(filename)
+      document.getElementById('file').onchange = ->
+        connection.send(this.files[0])
+
     getVideo = (stream) ->
       div = document.createElement("div")
       div.className = "video-container"
