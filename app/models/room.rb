@@ -9,7 +9,7 @@ class Room < ActiveRecord::Base
       maximum: 100,
     }
 
-    scope :public, -> { where(password: nil) }
+    scope :public, -> { where(password: '') }
 
 	def to_param
 		name
