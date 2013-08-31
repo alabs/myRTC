@@ -23,7 +23,7 @@
 //= require myrtc
 //= require zeroclipboard
 //= require clipboard
-//= require data-connection
-//= require chat
+// require data-connection
+// require chat
 //= require_self
 // require_tree .

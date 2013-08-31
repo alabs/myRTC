@@ -28,7 +28,6 @@ appendDIV = (data, parent) ->
   div.focus()
   chatInput.focus()
 
-
 $ ->
   checkWebRTCSupport()
   checkBrowserSupport()
@@ -39,8 +38,8 @@ $ ->
         session: "audio-video-data"
         direction: "many-to-many"
       )
-      connection.onmessage = (e) ->
-        appendDIV(e)
+      connection.onmessage = (msg) ->
+        appendDIV(msg)
       connection.onstream = (stream) ->
         $(".js-accept-webrtc").hide()
         video = getVideo(stream)
@@ -74,8 +73,8 @@ $ ->
     chatInput.onkeypress = (e) ->
       if (e.keyCode != 13 || !this.value)
         return
-      appendDIV(this.value);
       connection.send(this.value)
+      appendDIV(this.value)
 
       this.value = ''
       this.focus()
