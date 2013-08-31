@@ -15,15 +15,12 @@ checkBrowserSupport = ->
   if (is_firefox and is_android)
     showAlertUnsupported()
 
-appendDIV = (data, parent) ->
-  div = document.createElement('div')
-  div.innerHTML = data
+appendDIV = (data, user) ->
   chatOutput = document.getElementById('chat-output')
-  fileProgress = document.getElementById('file-progress')
-  if (!parent)
-    chatOutput.insertBefore(div, chatOutput.firstChild)
-  else
-    fileProgress.insertBefore(div, fileProgress.firstChild)
+  chatInput = document.getElementById('chat-input')
+  div = document.createElement('div')
+  div.innerHTML = '<div class="chat-msg"><strong>anon</strong><span class="chat-delim">: </span><span class="chat-text">'+data+'</span></div>'
+  chatOutput.insertBefore(div, chatOutput.firstChild)
   div.tabIndex = 0
   div.focus()
   chatInput.focus()
@@ -39,7 +36,7 @@ $ ->
         direction: "many-to-many"
       )
       connection.onmessage = (msg) ->
-        appendDIV(msg)
+        appendDIV(msg, 'anon')
       connection.onstream = (stream) ->
         $(".js-accept-webrtc").hide()
         video = getVideo(stream)
@@ -74,7 +71,7 @@ $ ->
       if (e.keyCode != 13 || !this.value)
         return
       connection.send(this.value)
-      appendDIV(this.value)
+      appendDIV(this.value, 'anon')
 
-      this.value = ''
-      this.focus()
+      chatInput.value = ''
+      chatInput.focus()

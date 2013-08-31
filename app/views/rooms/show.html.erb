@@ -33,20 +33,35 @@
           <div class="alert alert-danger hide js-no-webrtc">
             <strong>Oh no!</strong> It seems your browser isn't supported. We invite you to install it a modern browser, like Mozilla Firefox and Google Chrome. 
           </div>
-          <div class="col-md-12" id="remotes" style="text-align:center;"> </div>
-          <div class="col-md-12" id="localVideo" style="text-align:center;"></div>
+          <div class="col-md-8" id="remotes" style="text-align:center;"> </div>
+          <div class="col-md-8" id="localVideo" style="text-align:center;"></div>
         </div>
         <div class="col-md-4">
 
-          <div style="border-left: 1px solid #E5E5E5; width: 100%;">
-            <div id="chat-output" style="height:300px; font-size: 0.7em; text-align:left; margin-left: 5px;">
+
+
+         <!-- chat window -->
+        <div id='chat-window'>
+            <div class='column-pad'>
+                
+                <div id='chat-messages'>
+                    <div class='column-pad'>
+                        <div class='chat-msg' id="chat-output">
+                            <strong>Me</strong><span class='chat-delim'>: </span><span class='chat-text'>I said...</span>
+                        </div>
+                    </div>
+                </div>
+                <div id='chat-submission'>
+                    <div class="input-append">
+                        <input class="col-md-12" id="chat-input" type="text">
+                    </div>
+                </div>
             </div>
-            <input type="text" id="user-id" style="display:none; font-size: 0.8em; margin-left: -.5em; width: 80%;">
-            <input type="text" id="chat-input" style="font-size: 0.7em; margin-left: -.5em; width: 80%; height:50px; border: 1px solid #E5E5E5; padding:1px;"
-            placeholder="Enter your message" >
-            <input type="text" id="user-name" style="font-size: 0.7em; margin-left: -.5em; width: 80%; border: 1px solid #E5E5E5; padding:1px; "
-            placeholder="anonymous-23" >
-          </div>
+        </div>
+
+
+
+
         </div>
       </div>
 
