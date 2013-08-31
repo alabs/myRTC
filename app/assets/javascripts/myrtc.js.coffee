@@ -50,13 +50,12 @@ $ ->
         mediaElement.parentNode.parentNode.removeChild mediaElement.parentNode  if mediaElement and mediaElement.parentNode
       # sending/received files
       #connection.autoSaveToDisk = false
-      connection.onFileProgress = (packets, uuid) ->
+      connection.onFileProgress = (packets) ->
         console.log(packets)
       connection.onFileSent = (file) ->
-        console.log(file)
+        appendDIV('Le llegó el fichero', 'bot')
       connection.onFileReceived = (filename) ->
         appendDIV('Te llegó un fichero', 'bot')
-        console.log(filename)
       document.getElementById('file').onchange = ->
         connection.send(this.files[0])
 
