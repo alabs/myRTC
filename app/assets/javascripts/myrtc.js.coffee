@@ -37,7 +37,7 @@ appendProgressBar = (total, remaining) ->
   console.log(counter)
 
 removeProgressBar = ->
-  $("#file-progress").remove()
+  $(".progress-bar").remove()
 
 $ ->
   checkWebRTCSupport()
