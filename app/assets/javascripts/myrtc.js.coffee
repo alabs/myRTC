@@ -49,16 +49,16 @@ $ ->
         mediaElement = document.getElementById(userid)
         mediaElement.parentNode.parentNode.removeChild mediaElement.parentNode  if mediaElement and mediaElement.parentNode
       # sending/received files
-      #connection.autoSaveToDisk = false
+      connection.autoSaveToDisk = false
       connection.onFileProgress = (packets) ->
-        console.log(packets)
+        $("#file-progress > p").remove()
+        $("#file-progress").append('<p>Remaining: '+packets.remaining+' Length: '+packets.length+' Sent: '+packets.sent+'</p>')
       connection.onFileSent = (file) ->
         appendDIV('Le llegó el fichero', 'bot')
       connection.onFileReceived = (filename) ->
         appendDIV('Te llegó un fichero', 'bot')
       document.getElementById('file').onchange = ->
         connection.send(this.files[0])
-
     getVideo = (stream) ->
       div = document.createElement("div")
       div.className = "video-container"
@@ -82,6 +82,5 @@ $ ->
         return
       connection.send(this.value)
       appendDIV(this.value, 'anon')
-
       chatInput.value = ''
       chatInput.focus()
