@@ -66,7 +66,6 @@ $ ->
       connection.autoSaveToDisk = false
       connection.onFileProgress = (packets) ->
         appendProgressBar(packets.length, packets.remaining)
-        console.log(packets)
       connection.onFileSent = (file) ->
         removeProgressBar()
         appendDIV('Le llegó el fichero', 'bot')
