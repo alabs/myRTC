@@ -15,7 +15,7 @@ checkBrowserSupport = ->
   if (is_firefox and is_android)
     showAlertUnsupported()
 
-appendDIV = (data, user) ->
+appendChatMsg = (data, user) ->
   chatOutput = document.getElementById('chat-output')
   chatInput = document.getElementById('chat-input')
   div = document.createElement('div')
@@ -49,7 +49,7 @@ $ ->
         direction: "many-to-many"
       )
       connection.onmessage = (msg) ->
-        appendDIV(msg, 'anon')
+        appendChatMsg(msg, 'anon')
       connection.onstream = (stream) ->
         $(".js-accept-webrtc").hide()
         video = getVideo(stream)
@@ -67,10 +67,11 @@ $ ->
         appendProgressBar(packets.length, packets.remaining)
       connection.onFileSent = (file) ->
         removeProgressBar()
-        appendDIV('Le llegó el fichero', 'bot')
+        $("#file").val("")
+        appendChatMsg('Le llegó el fichero', 'bot')
       connection.onFileReceived = (filename) ->
         removeProgressBar()
-        appendDIV('Te llegó un fichero', 'bot')
+        appendChatMsg('Te llegó un fichero', 'bot')
       document.getElementById('file').onchange = ->
         connection.send(this.files[0])
     getVideo = (stream) ->
@@ -95,6 +96,6 @@ $ ->
       if (e.keyCode != 13 || !this.value)
         return
       connection.send(this.value)
-      appendDIV(this.value, 'anon')
+      appendChatMsg(this.value, 'anon')
       chatInput.value = ''
       chatInput.focus()
