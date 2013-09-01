@@ -34,7 +34,6 @@ appendProgressBar = (total, remaining) ->
   $("#file-progress")
     .append('<div class="progress-bar" role="progressbar" aria-valuenow="'+counter+'" aria-valuemin="0" aria-valuemax="'+total+'" style="width: '+percentProgressBar(total, counter)+'%"></div>')
   counter++
-  console.log(counter)
 
 removeProgressBar = ->
   $(".progress-bar").remove()
