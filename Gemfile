@@ -49,3 +49,5 @@ gem 'thin'
 gem 'pry-rails', group: :development
 
 gem 'zeroclipboard-rails'
+
+gem "font-awesome-rails"
