@@ -19,3 +19,10 @@ rails server
 ```
 
 Then go to http://localhost:3000/ 
+
+Versions
+======= 
+
+This is tested to work using 
+Ruby - 2.0.0p195
+Rails - 4.0.0

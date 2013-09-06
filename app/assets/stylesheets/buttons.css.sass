@@ -3,13 +3,37 @@
   background-image: linear-gradient(to bottom, #3B5998, #133783)
   background-repeat: repeat-x
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25)
-  color: #FFFFFF
+  color: #FFFFFF !important
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
+  margin: 10px
+  :hover
+    background-color: #fff !important
 
 .btn-twitter
   background-color: #1C95D0
   background-image: linear-gradient(to bottom, #2DADDC, #0271BF)
   background-repeat: repeat-x
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25)
-  color: #FFFFFF
+  color: #FFFFFF !important
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
+  margin: 10px
+  :hover
+    background-color: #fff
+
+.btn-file 
+  position: relative
+  overflow: hidden
+  input[type=file] 
+    position: absolute
+    top: 0
+    right: 0
+    min-width: 100%
+    min-height: 100%
+    font-size: 999px
+    text-align: right
+    filter: alpha(opacity=0)
+    opacity: 0
+    background: red
+    cursor: inherit
+    display: block
+

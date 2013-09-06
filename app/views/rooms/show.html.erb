@@ -7,79 +7,26 @@
   <div class="row">
     <div class="col-md-12">
 
-    <% if @room.password? and not @room.check_password? params[:roomgivenpass] %>
+      <% if @room.password? and not @room.check_password? params[:roomgivenpass] %>
 
-      <form role="form" class="form-horizontal" style="margin-top: 50px;">
-        <p>This room is password protected.</p>
-        <div class="form-group">
-          <label for="roomgivenpass" class="col-lg-4">Password</label>
-          <div class="col-lg-6">
-            <input type="password" class="form-control" id="roomgivenpass" name="roomgivenpass" placeholder="Password">
-          </div>
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
+        <%= render :partial => "form_password" %>
 
       <% else %>
 
-      <div class="row" style="margin: 20px 0px;">
-        <div class="col-md-8">
-          <div class="alert alert-success hide js-copyclip-alert">
-            <strong>Copy!</strong> We've copied this URL to the clipboard to you to share it. 
+        <div class="row" style="margin: 20px 0px;">
+          <div class="col-md-8">
+            <%= render :partial => "alerts" %>
+            <div class="col-md-12 center" id="remotes"> </div>
+            <div class="col-md-12 center" id="localVideo"></div>
           </div>
-          <div class="alert alert-info js-accept-webrtc">
-            <strong>Atention!</strong> We're going to ask you for permition to access to your webcam and microphone. Please accept it. In case you have closed it you can refresh this page. 
+          <div class="col-md-4">
+            <%= render :partial => "chat" %>
           </div>
-          <div class="alert alert-danger hide js-no-webrtc">
-            <strong>Oh no!</strong> It seems your browser isn't supported. We invite you to install it a modern browser, like Mozilla Firefox and Google Chrome. 
-          </div>
-          <div class="col-md-8" id="remotes" style="text-align:center;"> </div>
-          <div class="col-md-8" id="localVideo" style="text-align:center;"></div>
         </div>
-        <div class="col-md-4">
 
-        <div id="sendxfiles">
+      <% end %>
 
-  <div class="form-group">
-    <input id="file" type="file">
+    </div>
   </div>
-
-
-<div id="file-progress" class="progress progress-striped active">
-</div>
-
-
-        </div>
-
-         <!-- chat window -->
-        <div id='chat-window'>
-            <div class='column-pad'>
-                
-                <div id='chat-messages'>
-                    <div class='column-pad'>
-                        <div class='chat-msg' id="chat-output">
-                            <strong>Me</strong><span class='chat-delim'>: </span><span class='chat-text'>I said...</span>
-                        </div>
-                    </div>
-                </div>
-                <div id='chat-submission'>
-                    <div class="input-append">
-                        <input class="col-md-12" id="chat-input" type="text">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-        </div>
-      </div>
-
-    <% end %>
-
-    <hr />
-  </div>
-</div>
 </div>
 
