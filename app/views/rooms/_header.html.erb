@@ -1,39 +1,34 @@
 <h1>Room: <%= room.name %></h1>
 <% unless @room.password? and not @room.check_password? params[:roomgivenpass] %>
   <div class="btn-group">
+    <a href="#" class="btn btn-info btn-file" id="sendxfiles">
+      <i class="icon-upload"></i> |
+      Share a file
+      <input id="file" type="file">
+    </a>
+    <a href="#" class="js-open-pad btn btn-success"><i class="icon-pencil"></i> | Open a Pad</a>
     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
       <i class="icon-share"></i> |
       Share <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
       <li>
-        <a href="#" class="js-share-fb btn btn-facebook btn-sm"><i class="icon-facebook"></i> | Share on Facebook</a>
+      <a href="#" class="js-share-fb btn btn-facebook btn-sm"><i class="icon-facebook"></i> | Share on Facebook</a>
       </li>
       <li>
-        <a href="#" class="js-share-tw btn btn-twitter btn-sm"><i class="icon-twitter"></i> | Share on Twitter</a>
+      <a href="#" class="js-share-tw btn btn-twitter btn-sm"><i class="icon-twitter"></i> | Share on Twitter</a>
       </li>
       <li class="divider"></li>
       <li>
-        <button href="#" class="js-copyclip btn btn-success btn-sm" data-clipboard-text='Join me in a web videoconference: <%= room_url(room) %>'>
-          <i class="icon-copy"></i> 
-          | Copy to Clipboard
-        </button>
+      <button href="#" class="js-copyclip btn btn-success btn-sm" data-clipboard-text='Join me in a web videoconference: <%= room_url(room) %>'>
+        <i class="icon-copy"></i> 
+        | Copy to Clipboard
+      </button>
       </li>
     </ul>
   </div>
 
-  <span id="sendxfiles">
-
-    <span class="btn btn-info btn-file">
-      <i class="icon-upload"></i> |
-      Upload a file
-      <input id="file" type="file">
-    </span>
-
-    <span id="file-progress" class="progress progress-striped active"></span>
-  </span>
-
-  <a href="#" class="js-open-pad btn btn-success"><i class="icon-pencil"></i> | Open a Pad</a>
+  <span id="file-progress" class="progress progress-striped active"></span>
 
   <% if room.password? %><br />
     <span class="label label-info"><i class="icon-lock"></i> <%= room.password %></span>
