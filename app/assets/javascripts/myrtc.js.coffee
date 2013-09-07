@@ -1,3 +1,9 @@
+
+hash = window.location.href.substring(window.location.href.lastIndexOf("/") + 1)
+
+###
+myrtc-support 
+###
 showAlertUnsupported = ->
   $('.js-no-webrtc').removeClass('hide').show()
   $('.js-accept-webrtc').hide()
@@ -15,15 +21,96 @@ checkBrowserSupport = ->
   if (is_firefox and is_android)
     showAlertUnsupported()
 
-appendChatMsg = (data, user) ->
-  chatOutput = document.getElementById('chat-output')
-  chatInput = document.getElementById('chat-input')
+###
+myrtc-videos
+###
+
+checkVideosSizes = ->
+  $remotes = $('#remotes video')
+  switch $remotes.size()
+    when 1 then $remotes.attr('width', '100%')
+    when 2 then $remotes.attr('width', '50%')
+    when 3 then $remotes.attr('width', '33%')
+    else $remotes.attr('width', '33%')
+
+initVideo = (stream) ->
+  $(".js-accept-webrtc").hide()
+  video = getVideo(stream)
+  document.getElementById("localVideo").appendChild video  if stream.type is "local"
+  if stream.type is "remote"
+    remoteMediaStreams = document.getElementById("remotes")
+    remoteMediaStreams.appendChild video, remoteMediaStreams.firstChild
+  stream.mediaElement.width = innerWidth / 3.4
+
+getVideo = (stream) ->
+  div = document.createElement("div")
+  div.className = "video-container"
+  div.id = stream.userid or "self"
+  stream.mediaElement.autoplay = true
+  div.appendChild stream.mediaElement
+  div
+
+initConnection = (config) ->
+  window.connection = new RTCMultiConnection(hash,
+    firebase: "myrtc"
+    session: "audio-video-data"
+    direction: "many-to-many"
+  )
+  connection.onmessage = (msg) ->
+    appendChatMsg(chatInput, chatOutput, msg, 'anon')
+  connection.onstream = (stream) ->
+    initVideo(stream)
+  connection.onleave = (userid) ->
+    mediaElement = document.getElementById(userid)
+    mediaElement.parentNode.parentNode.removeChild mediaElement.parentNode  if mediaElement and mediaElement.parentNode
+  # sending/received files
+  connection.autoSaveToDisk = false
+  connection.onFileProgress = (packets) ->
+    appendProgressBar(packets.length, packets.remaining)
+  connection.onFileSent = (file) ->
+    removeProgressBar()
+    $("#file").val("")
+    appendChatMsg(chatInput, chatOutput, 'Le llegó el fichero', 'bot')
+  connection.onFileReceived = (filename) ->
+    removeProgressBar()
+    appendChatMsg(chatInput, chatOutput, 'Te llegó un fichero', 'bot')
+  document.getElementById('file').onchange = ->
+    connection.send(this.files[0])
+
+### 
+myrtc-chat
+###
+
+appendChatMsg = (chatInput, chatOutput, data, user) ->
   div = document.createElement('div')
   div.innerHTML = '<div class="chat-msg"><strong>'+user+'</strong><span class="chat-delim">: </span><span class="chat-text">'+data+'</span></div>'
   chatOutput.insertBefore(div, chatOutput.firstChild)
   div.tabIndex = 0
   div.focus()
   chatInput.focus()
+
+initChatAndVideo = (chatInput, chatOutput, hash) ->
+  new window.Firebase("https://myrtc.firebaseio.com/" + hash).once "value", (data) ->
+    isRoomPresent = data.val()?
+    if isRoomPresent
+      initConnection()
+      window.isRoomInitiator = false
+    else
+      initConnection()
+      connection.open()
+      window.isRoomInitiator = true
+  chatInput = document.getElementById('chat-input')
+  chatInput.onkeypress = (e) ->
+    if (e.keyCode != 13 || !this.value)
+      return
+    connection.send(this.value)
+    appendChatMsg(chatInput, chatOutput, this.value, 'anon')
+    chatInput.value = ''
+    chatInput.focus()
+
+###
+myrtc-filetransfer
+###
 
 percentProgressBar = (total, counter) ->
   (counter/total) * 100
@@ -38,64 +125,18 @@ appendProgressBar = (total, remaining) ->
 removeProgressBar = ->
   $(".progress-bar").remove()
 
+###
+myrtc
+###
+
 $ ->
-  checkWebRTCSupport()
-  checkBrowserSupport()
   if $("body#rtc-enabled").length
-    initConnection = (config) ->
-      window.connection = new RTCMultiConnection(hash,
-        firebase: "myrtc"
-        session: "audio-video-data"
-        direction: "many-to-many"
-      )
-      connection.onmessage = (msg) ->
-        appendChatMsg(msg, 'anon')
-      connection.onstream = (stream) ->
-        $(".js-accept-webrtc").hide()
-        video = getVideo(stream)
-        document.getElementById("localVideo").appendChild video  if stream.type is "local"
-        if stream.type is "remote"
-          remoteMediaStreams = document.getElementById("remotes")
-          remoteMediaStreams.appendChild video, remoteMediaStreams.firstChild
-        stream.mediaElement.width = innerWidth / 3.4
-      connection.onleave = (userid) ->
-        mediaElement = document.getElementById(userid)
-        mediaElement.parentNode.parentNode.removeChild mediaElement.parentNode  if mediaElement and mediaElement.parentNode
-      # sending/received files
-      connection.autoSaveToDisk = false
-      connection.onFileProgress = (packets) ->
-        appendProgressBar(packets.length, packets.remaining)
-      connection.onFileSent = (file) ->
-        removeProgressBar()
-        $("#file").val("")
-        appendChatMsg('Le llegó el fichero', 'bot')
-      connection.onFileReceived = (filename) ->
-        removeProgressBar()
-        appendChatMsg('Te llegó un fichero', 'bot')
-      document.getElementById('file').onchange = ->
-        connection.send(this.files[0])
-    getVideo = (stream) ->
-      div = document.createElement("div")
-      div.className = "video-container"
-      div.id = stream.userid or "self"
-      stream.mediaElement.autoplay = true
-      div.appendChild stream.mediaElement
-      div
-    hash = window.location.href.substring(window.location.href.lastIndexOf("/") + 1)
-    new window.Firebase("https://myrtc.firebaseio.com/" + hash).once "value", (data) ->
-      isRoomPresent = data.val()?
-      if isRoomPresent
-        initConnection()
-        window.isRoomInitiator = false
-      else
-        initConnection()
-        connection.open()
-        window.isRoomInitiator = true
+    checkWebRTCSupport()
+    checkBrowserSupport()
+    chatOutput = document.getElementById('chat-output')
     chatInput = document.getElementById('chat-input')
-    chatInput.onkeypress = (e) ->
-      if (e.keyCode != 13 || !this.value)
-        return
-      connection.send(this.value)
-      appendChatMsg(this.value, 'anon')
-      chatInput.value = ''
-      chatInput.focus()
+    initChatAndVideo(chatInput, chatOutput, hash)
+    setTimeout ( ->
+      checkVideosSizes()
+    ), 10000
+    true
