@@ -6,7 +6,8 @@ $primary: #DD4814
 
 #rtc-enabled 
   .container
-    max-width: 940px
+    max-width: 75%
+    margin-right: 250px
   .col-md-12
     text-align: center
 
@@ -43,7 +44,8 @@ $primary: #DD4814
   text-align: left
   background-color: #fff
   border: 1px solid #ccc
-  height: 250px
+  height: 100%
+  overflow-y: scroll
 
 #chat-submission
   margin-top: 10px
@@ -54,9 +56,23 @@ $primary: #DD4814
 
 #chat-output 
   border-top: 1px solid #ccc
-  font-size: 0.8em
+  font-size: 0.7em
 
 #chat-input
-  font-size: 0.8em
+  font-size: 0.7em
   text-align: left !important
 
+.chat-msg span
+  font-weight: normal
+
+#sidebar 
+  position: fixed
+  background: #e5e5e5
+  right: 0
+  top: 0
+  width: 230px
+  height: 100%
+  #chat-window
+    height: 100%
+    .column-pad
+      height: 90%

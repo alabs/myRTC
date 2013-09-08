@@ -2,6 +2,29 @@
 hash = window.location.href.substring(window.location.href.lastIndexOf("/") + 1)
 
 ###
+cookies
+###
+
+setCookie = (c_name, value, exdays) ->
+  exdate = new Date()
+  exdate.setDate exdate.getDate() + exdays
+  c_value = escape(value) + ((if (not (exdays?)) then "" else "; expires=" + exdate.toUTCString()))
+  document.cookie = c_name + "=" + c_value
+
+getCookie = (c_name) ->
+  i = undefined
+  x = undefined
+  y = undefined
+  ARRcookies = document.cookie.split(";")
+  i = 0
+  while i < ARRcookies.length
+    x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="))
+    y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1)
+    x = x.replace(/^\s+|\s+$/g, "")
+    return unescape(y)  if x is c_name
+    i++
+
+###
 myrtc-support 
 ###
 showAlertUnsupported = ->
@@ -51,13 +74,14 @@ getVideo = (stream) ->
   div
 
 initConnection = (config) ->
+  username = $('#chat-username').val() + ' <span>[' + getHMS() + ']</span>'
   window.connection = new RTCMultiConnection(hash,
     firebase: "myrtc"
     session: "audio-video-data"
     direction: "many-to-many"
   )
   connection.onmessage = (msg) ->
-    appendChatMsg(chatInput, chatOutput, msg, 'anon')
+    appendChatMsg(chatInput, chatOutput, msg, username)
   connection.onstream = (stream) ->
     initVideo(stream)
   connection.onleave = (userid) ->
@@ -81,10 +105,27 @@ initConnection = (config) ->
 myrtc-chat
 ###
 
+setRandomUser = ->
+  $('#chat-username').val("anonymous-" + getRandomNumber())
+
+getRandomNumber = ->
+  Math.floor(Math.random()*111111)
+
+pad = (n) ->
+  ("0" + n).slice(-2)
+
+getHMS = ->
+  date = new Date
+  seconds = pad(date.getSeconds())
+  minutes = pad(date.getMinutes())
+  hour = pad(date.getHours())
+  hour + ':' + minutes + ':' + seconds
+
 appendChatMsg = (chatInput, chatOutput, data, user) ->
   div = document.createElement('div')
   div.innerHTML = '<div class="chat-msg"><strong>'+user+'</strong><span class="chat-delim">: </span><span class="chat-text">'+data+'</span></div>'
   chatOutput.insertBefore(div, chatOutput.firstChild)
+  #chatOutput.insertBefore(div, chatOutput.firstChild)
   div.tabIndex = 0
   div.focus()
   chatInput.focus()
@@ -104,7 +145,8 @@ initChatAndVideo = (chatInput, chatOutput, hash) ->
     if (e.keyCode != 13 || !this.value)
       return
     connection.send(this.value)
-    appendChatMsg(chatInput, chatOutput, this.value, 'anon')
+    username = $('#chat-username').val() + ' <span>[' + getHMS() + ']</span>'
+    appendChatMsg(chatInput, chatOutput, this.value, username)
     chatInput.value = ''
     chatInput.focus()
 
@@ -135,8 +177,44 @@ $ ->
     checkBrowserSupport()
     chatOutput = document.getElementById('chat-output')
     chatInput = document.getElementById('chat-input')
+    setRandomUser()
     initChatAndVideo(chatInput, chatOutput, hash)
     setTimeout ( ->
       checkVideosSizes()
     ), 10000
+    if getCookie("username") 
+      $('#chat-username').val(getCookie("username"))
+    else
+      setCookie("username", $('#chat-username').val(), 30)
+    checkUsernameTyping()
     true
+
+checkUsernameTyping = ->
+  typingTimer = undefined
+
+  #on keyup, start the countdown
+  $('#chat-username').keyup ->
+    typingTimer = setTimeout(doneTyping, 2000)
+
+  #on keydown, clear the countdown 
+  $('#chat-username').keydown ->
+    clearTimeout typingTimer
+
+#user is "finished typing," do something
+doneTyping = ->
+  username = $('#chat-username').val()
+  setCookie("username", username, 30)
+  $('.js-alerts-wrapper').prepend '<div class="alert alert-success hide js-username-changed">We have changed your name to ' + username + '</div>'
+  $('.js-username-changed').removeClass('hide').slideDown(500)
+  setTimeout ( ->
+    $('.js-username-changed').slideUp()
+  ), 5000
+  
+# $('#chat-username').bind 'input', ->
+#   username = $('#chat-username').val()
+#   setCookie("username", username, 30)
+#   $('.js-alerts-wrapper').prepend '<div class="alert alert-success hide js-username-changed">We have changed your name to ' + username + '</div>'
+#   $('.js-username-changed').removeClass('hide').slideDown(500)
+#   setTimeout ( ->
+#     $('.js-username-changed').slideUp()
+#   ), 5000

@@ -3,31 +3,26 @@
   <p id="notice" class="alert alert-primary"><%= notice %></p>
 <% end %>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
+<div class="row">
+  <div class="col-md-12">
 
-      <% if @room.password? and not @room.check_password? params[:roomgivenpass] %>
-        <%= render :partial => "form_password" %>
-      <% else %>
+    <% if @room.password? and not @room.check_password? params[:roomgivenpass] %>
+      <%= render :partial => "form_password" %>
+    <% else %>
 
-        <div class="row" style="margin: 20px 0px;">
-
-          <div class="js-pad-wrapper" style="margin-bottom: 40px;"></div>
-
-          <div class="col-md-8">
+      <div class="row" style="margin: 20px 0px;">
+        <div class="js-pad-wrapper" style="margin-bottom: 40px;"></div>
+        <div class="col-md-12">
+          <div class="js-alerts-wrapper">
             <%= render :partial => "alerts" %>
+          </div>
+          <div class="js-video-wrapper">
             <div class="col-md-12 center" id="remotes"> </div>
             <div class="col-md-12 center" id="localVideo"></div>
           </div>
-          <div class="col-md-4">
-            <%= render :partial => "chat" %>
-          </div>
         </div>
+      </div>
 
-      <% end %>
-
-    </div>
+    <% end %>
   </div>
 </div>
-
